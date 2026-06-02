@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Contact Manager is a secure web-based personal contact management application developed for COP 4331. Users can create accounts, log in securely, and manage their own personal contact lists. Each user's contacts are private and isolated from other users.
+Contact Manager is a secure web-based personal contact management application developed for CIS 4004. Users can create accounts, log in securely, and manage their own personal contact lists. Each user's contacts are private and isolated from other users.
 
 The application allows users to:
 
