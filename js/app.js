@@ -2,9 +2,10 @@
 // 1. Keep USE_MOCK_API true for the frontend-only demo.
 // 2. When the PHP endpoints are ready, set USE_MOCK_API to false.
 // 3. Confirm payload/response field names with the backend team in apiRequest() calls below.
-const USE_MOCK_API = true;
+const USE_MOCK_API = false;
 
 const API_ENDPOINTS = {
+  dbTest: "/LAMPAPI/DBTest.php",
   login: "/LAMPAPI/Login.php",
   register: "/LAMPAPI/Register.php",
   searchContacts: "/LAMPAPI/SearchContacts.php",
