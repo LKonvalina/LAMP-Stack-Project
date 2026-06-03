@@ -41,7 +41,7 @@ https://lamp.myucf.xyz/
 
 * Linux (DigitalOcean Ubuntu Droplet)
 * Apache Web Server
-* MySQL Database
+* Google Cloud -> Cloud SQL (MySQL Database)
 * PHP REST-style API
 
 ### Frontend
