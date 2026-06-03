@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Manager</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<!-- add style to body tag -->
+<body id="pageBody">
+  <h1 id="title"></h1>
   <main>
     <section id="landing-view" class="auth-page">
       <div class="auth-card">
@@ -113,8 +115,14 @@
         </section>
       </div>
     </section>
+	<!-- Hidden elements -->
+	<div id="videoContainer">
+    	<iframe id="secretVideo" width="560" height="315" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+	</div>
+	<button id="resetButton" onclick="turnOffSecret()">YouTube Off</button>
   </main>
 
-  <script src="app.js"></script>
+  <script type="text/javascript" src="js/ee.js" defer></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
