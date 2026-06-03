@@ -10,7 +10,7 @@
     	$host = '34.23.202.55';
     	$port = 3306;
 
-	$conn = new mysqli($host, $user, $password, $dbname, $port);
+	$conn = new mysqli($host, $user, $password, $dbName, $port);
 	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
@@ -55,7 +55,7 @@
 	}
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"FullName","FirstName":"","LastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":0,"FullName":"","FirstName":"","LastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	function returnWithInfo( $searchResults )
