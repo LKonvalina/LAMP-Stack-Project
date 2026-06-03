@@ -181,5 +181,5 @@ on the DigitalOcean server.
 --
 ---
 
-COP 4004
+CIS4004 C1-Summer 2026
 University of Central Florida
