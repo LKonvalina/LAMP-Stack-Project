@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <section id="landing-view" class="auth-page">
+      <div class="auth-card">
+        <h1>Contact Manager</h1>
+        <p class="page-note">Log in or create an account to manage your contacts.</p>
+
+        <div class="tab-list" role="tablist" aria-label="Authentication forms">
+          <button class="tab-button active" type="button" role="tab" aria-selected="true" data-auth-tab="login">Log in</button>
+          <button class="tab-button" type="button" role="tab" aria-selected="false" data-auth-tab="signup">Sign up</button>
+        </div>
+
+        <form id="login-form" class="auth-form active" autocomplete="on">
+          <label for="login-username">Username</label>
+          <input id="login-username" name="username" type="text" required>
+
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" required>
+
+          <button class="button primary full" type="submit">Log in</button>
+        </form>
+
+        <form id="signup-form" class="auth-form" autocomplete="on">
+          <div class="form-row">
+            <div>
+              <label for="signup-first-name">First name</label>
+              <input id="signup-first-name" name="firstName" type="text" required>
+            </div>
+            <div>
+              <label for="signup-last-name">Last name</label>
+              <input id="signup-last-name" name="lastName" type="text" required>
+            </div>
+          </div>
+
+          <label for="signup-username">Username</label>
+          <input id="signup-username" name="username" type="text" required>
+
+          <label for="signup-password">Password</label>
+          <input id="signup-password" name="password" type="password" required minlength="6">
+
+          <label for="signup-confirm-password">Confirm password</label>
+          <input id="signup-confirm-password" name="confirmPassword" type="password" required minlength="6">
+
+          <button class="button primary full" type="submit">Create account</button>
+        </form>
+
+        <p id="auth-message" class="form-message" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section id="dashboard-view" class="dashboard-page hidden" aria-labelledby="dashboard-title">
+      <header class="dashboard-header">
+        <div>
+          <h1 id="dashboard-title">Contacts</h1>
+          <p id="welcome-message">Manage your contact list.</p>
+        </div>
+        <button id="logout-button" class="button secondary" type="button">Log out</button>
+      </header>
+
+      <div class="dashboard-grid">
+        <section class="panel" aria-labelledby="contact-form-title">
+          <h2 id="contact-form-title">Add contact</h2>
+
+          <form id="contact-form">
+            <input id="contact-id" name="id" type="hidden">
+
+            <div class="form-row">
+              <div>
+                <label for="contact-first-name">First name</label>
+                <input id="contact-first-name" name="firstName" type="text" required>
+              </div>
+              <div>
+                <label for="contact-last-name">Last name</label>
+                <input id="contact-last-name" name="lastName" type="text" required>
+              </div>
+            </div>
+
+            <label for="contact-email">Email</label>
+            <input id="contact-email" name="email" type="email">
+
+            <label for="contact-phone">Phone</label>
+            <input id="contact-phone" name="phone" type="tel">
+
+            <div class="form-actions">
+              <button id="save-contact-button" class="button primary" type="submit">Add contact</button>
+              <button id="cancel-edit-button" class="button secondary hidden" type="button">Cancel</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel" aria-labelledby="contacts-list-title">
+          <div class="list-header">
+            <div>
+              <h2 id="contacts-list-title">Contact list</h2>
+              <p id="contact-count">0 contacts</p>
+            </div>
+            <label class="search-label" for="contact-search">
+              <span class="sr-only">Search contacts</span>
+              <input id="contact-search" type="search" placeholder="Search contacts">
+            </label>
+          </div>
+
+          <div id="contacts-list" class="contacts-list" aria-live="polite"></div>
+          <p id="empty-state" class="empty-state">No contacts yet.</p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
