@@ -290,3 +290,41 @@ input:focus {
     flex-direction: column;
   }
 }
+
+/* New styling for easter egg video */
+#title 
+{
+    font-size: 40px;
+    width: 100%;
+    margin: 2% 5%;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+}
+
+#videoContainer {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%); /* Positions the box perfectly */
+    z-index: 9998; /* One layer below the reset button */
+    border: 5px solid #fff;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.8);
+    background-color: #000;
+}
+
+/* Easter Egg Reset button (keep existing styles, just ensure z-index is highest) */
+#resetButton {
+    display: none; 
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    border: 2px solid black;
+    cursor: pointer;
+    z-index: 9999; /* Top layer */
+}
