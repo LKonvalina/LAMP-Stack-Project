@@ -32,7 +32,17 @@
 	else
 	{
 		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
-		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
+
+        	//Debug: Catch prepare errors (e.g., wrong table name or field issue)
+        	if (!$stmt) {
+            	returnWithError("Debug: Prepare failed (Select): " . $conn->error);
+        	}
+
+		//Hash and salts the password before passing to DB bind param
+		$userPassword = $inData["password"];
+            	$hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+
+		$stmt->bind_param("ss", $inData["login"], $hashedPassword);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
