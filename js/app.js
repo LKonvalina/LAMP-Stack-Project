@@ -354,6 +354,9 @@ async function apiRequest(url, payload) {
 
   const data = await response.json();
 
+  //debug response
+  console.log("Debug: apiResponse ", data);
+
   if (!response.ok || data.error) {
     throw new Error(data.error || "Something went wrong. Please try again.");
   }

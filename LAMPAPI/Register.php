@@ -8,6 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit;
 }
 
+// Debug Optional: Uncomment these two lines below temporarily
+// to view PHP errors directly in the browser network tab
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+
+
 $inData = getRequestInfo();
 
 // Require this config file in a secure location outside the web root
@@ -32,6 +38,11 @@ else {
     else {
         //Checks if username exists
         $stmt = $conn->prepare("SELECT ID FROM Users WHERE Login=?");
+       
+        //Debug: Catch prepare errors (e.g., wrong table name)
+        if (!$stmt) {
+            returnWithError("Debug: Prepare failed (Select): " . $conn->error);
+        }
 
         $stmt->bind_param("s", $login);
         $stmt->execute();
@@ -45,6 +56,11 @@ else {
             $hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 
             $stmtInsert = $conn->prepare("INSERT INTO Users(firstName, lastName, Login, Password) VALUES (?, ?, ?, ?)");
+	   // Debug: Catch prepare errors on the insert statement
+            if (!$stmtInsert) {
+                returnWithError("Debug: Prepare failed (Insert): " . $conn->error);
+            }
+
 
             $stmtInsert->bind_param("ssss", $firstName, $lastName, $login, $hashedPassword);
 
@@ -74,11 +90,13 @@ function sendResultInfoAsJson($obj) {
 function returnWithError($err) {
     $retValue = '{"error":"' .$err .'"}';
     sendResultInfoAsJson($retValue);
+    exit; // Halt execution after an error is returned
 }
 
 function returnWithSuccess() {
     $retValue = '{"error":""}';
     sendResultInfoAsJson($retValue);
+    exit; // Halt execution on success
 }
 
 ?>
