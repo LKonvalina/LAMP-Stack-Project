@@ -3,14 +3,14 @@
 	$inData = getRequestInfo();
 	$searchResults = "";
 	$searchCount = 0;
-	// Connection details
-    	$user = 'webapi';
-    	$password = 'cis4004!webapi';
-    	$dbName = 'CIS4004';
-    	$host = '34.23.202.55';
-    	$port = 3306;
 
-	$conn = new mysqli($host, $user, $password, $dbName, $port);
+	// Require this config file in a secure location outside the web root
+   	require_once('/var/www/db_config.php');
+
+    	// Attempt connection to GCP Cloud SQL with secured credentials
+    	$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
+
+
 	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );

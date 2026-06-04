@@ -18,18 +18,12 @@
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
+	
+	// Require this config file in a secure location outside the web root
+   	require_once('/var/www/db_config.php');
 
-	//Digital Ocean LAMP VM
-	//$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
-        //Need to change connection string format for GCP Cloud SQL and Public IP
-        $user = 'webapi';
-        $password = 'cis4004!webapi';
-        $dbName = 'CIS4004';
-        $host = '34.23.202.55';
-        $port = 3306;
-
-	//attempt connection to the GCP Cloud SQL
-	$conn = new mysqli($host, $user, $password, $dbName, $port);
+    	// Attempt connection to GCP Cloud SQL with secured credentials
+    	$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
 
 	if( $conn->connect_error )
 	{
