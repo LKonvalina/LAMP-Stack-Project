@@ -133,6 +133,9 @@ async function handleLogin(event) {
       ? mockLogin(credentials)
       : await apiRequest(API_ENDPOINTS.login, credentials);
 
+   //Debug Login
+   console.log("Debug: credentials ", credentials);
+
     state.user = normalizeUser(user, credentials.login);
     writeStorage(STORAGE_KEYS.session, state.user);
     await loadContacts();
@@ -344,6 +347,8 @@ function resetContactForm() {
 }
 
 async function apiRequest(url, payload) {
+  //debug
+  console.log("Debug:apiRequest ",url,":", payload); 
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -353,7 +358,7 @@ async function apiRequest(url, payload) {
   });
 
   const data = await response.json();
-
+  
   //debug response
   console.log("Debug: apiResponse ", data);
 
