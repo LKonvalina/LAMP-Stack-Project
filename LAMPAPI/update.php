@@ -2,12 +2,9 @@
 
 $inData = getRequestInfo();
 
-$user = 'webapi';
-$password = 'cis4004!webapi';
-$dbName = 'CIS4004';
-$host = '34.23.202.55';
-$port = 3306;
 
+require_once('/var/www/db_config.php');
+// Attempt connection to GCP Cloud SQL with secured credentials
 $conn = new mysqli($host, $user, $password, $dbName, $port);
 
 if ($conn->connect_error)
