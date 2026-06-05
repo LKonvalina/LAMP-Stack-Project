@@ -21,7 +21,7 @@ if ($conn->connect_error)
 }
 else
 {
-    $contactID = $inData["contactId"];
+    $contactID = $inData["id"] ?? "";
     $userID = $inData["userId"];
     $firstName = $inData["firstName"];
     $lastName  = $inData["lastName"] ?? "";
