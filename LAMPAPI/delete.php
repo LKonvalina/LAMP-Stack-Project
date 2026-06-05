@@ -8,12 +8,14 @@ require_once('/var/www/db_config.php');
 // Attempt connection to GCP Cloud SQL with secured credentials
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
 
+//Verifying database connection 
 if ($conn->connect_error)
 {
     returnWithError($conn->connect_error);
 }
 else
 {
+    //Getting all needed information
     $contactID = $inData["contactId"];
     $userID = $inData["userId"];
     $firstName = $inData["firstName"];
@@ -26,6 +28,7 @@ else
     }
     else
     {
+        //Deletes the contact if it belongs to the signed in user
         $stmt = $conn->prepare(
             "DELETE FROM Contacts
              WHERE ID = ? AND UserID = ?"
@@ -33,8 +36,10 @@ else
 
         $stmt->bind_param("ii", $contactID, $userID);
 
+        //Execution of the delete command
         if ($stmt->execute())
         {
+            //Check to see if the contact was actually deleted
             if ($stmt->affected_rows > 0)
             {
                 returnWithSuccess();
