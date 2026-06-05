@@ -13,7 +13,7 @@ $inData = getRequestInfo();
 
 require_once('/var/www/db_config.php');
 // Attempt connection to GCP Cloud SQL with secured credentials
-$conn = new mysqli($host, $user, $password, $dbName, $port);
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
 
 if ($conn->connect_error)
 {
