@@ -22,15 +22,14 @@ else
 
     $stmt = $conn->prepare(
         "UPDATE Contacts
-         SET FirstName = ?, LastName = ?, FullName = ?, Phone = ?, Email = ?
+         SET FirstName = ?, LastName = ?, Phone = ?, Email = ?
          Where ID = ? AND UserID = ?"
     );
 
     $stmt->bind_param(
-        "sssssii",
+        "ssssii",
         $firstName,
         $lastName,
-        $fullName,
         $phone,
         $email,
         $contactID,
