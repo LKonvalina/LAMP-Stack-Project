@@ -24,6 +24,7 @@ else
     $contactID = $inData["contactId"];
     $userID = $inData["userId"];
     $firstName = $inData["firstName"];
+    $lastName  = $inData["lastName"] ?? "";
     $phone = $inData["phone"];
     $email = $inData["email"];
 
