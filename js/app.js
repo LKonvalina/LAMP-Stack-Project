@@ -214,7 +214,8 @@ async function handleSaveContact(event) {
     }
 
     await loadContacts();
-    resetContactForm();
+    renderContacts();
+    resetContactForm();  
   } catch (error) {
     alert(error.message);
   }
@@ -332,6 +333,7 @@ async function deleteContact(contactId) {
     }
 
     await loadContacts();
+    renderContacts();	  
     resetContactForm();
   } catch (error) {
     alert(error.message);
