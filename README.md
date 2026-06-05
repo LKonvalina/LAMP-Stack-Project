@@ -56,7 +56,7 @@ https://lamp.myucf.xyz/
 * GitHub
 * Git
 * DigitalOcean
-* Cloudflare DNS
+* GoDaddy DNS
 * Postman / Bruno
 * Discord
 
