@@ -1,14 +1,24 @@
 <?php
 
+// Allow requests from any origin (for development/cross domain support)
+// For better security in production, replace '*' with your web server's actual URL/IP
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 
- if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-        exit;
-    }
+// Handle the browser's "preflight" OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit;
+ }
+
+// Debug Optional: Uncomment these two lines below temporarily
+// to view PHP errors directly in the browser network tab
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 $inData = getRequestInfo();
+$deleteResults = "";
+$deleteCount = 0;
 
 
 require_once('/var/www/db_config.php');
@@ -23,9 +33,13 @@ if ($conn->connect_error)
 else
 {
     //Getting all needed information
-    $contactID = $inData["contactId"];
-    $userID = $inData["userId"];
+    $contactID = $inData["id"] ?? "";
+    $userID = $inData["userId"] ?? "";
 
+	//fields below not needed for delete
+	//    $firstName = $inData["firstName"];
+	//    $phone = $inData["phone"];
+	//    $email = $inData["email"];
 
     if ($contactID == "" || $userID == "")
     {
@@ -39,24 +53,30 @@ else
              WHERE ID = ? AND UserID = ?"
         );
 
-        $stmt->bind_param("ii", $contactID, $userID);
+	//Debug: Catch prepare errors (e.g., wrong table name or field issue)
+       	if (!$stmt) {
+         	returnWithError("Debug: Prepare failed (Delete): " . $conn->error);
+       	}
 
+        $stmt->bind_param("ii", $contactID, $userID);
+	
         //Execution of the delete command
-        if ($stmt->execute())
+        if($stmt->execute())
         {
             //Check to see if the contact was actually deleted
-            if ($stmt->affected_rows > 0)
+            if ($stmt->affected_rows == 1)
             {
                 returnWithSuccess();
             }
             else
             {
-                returnWithError("Contact not found");
+               // SQL ran fine, but no rows matched the ID + UserID combination
+                returnWithError("Contact not found or unauthorized");
             }
         }
         else
         {
-            returnWithError("Unable to delete contact");
+            returnWithError("Unable to execute delete command: " . $stmt->error);
         }
 
         $stmt->close();
