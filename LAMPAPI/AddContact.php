@@ -10,8 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 $inData = getRequestInfo();
 
+//Require this config file in a secure location outside the web root
 require_once('/var/www/db_config.php');
 
+//Attempt connection to GCP Cloud SQL with secured credentials
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
 
 if ($conn->connect_error) {
@@ -23,19 +25,18 @@ else {
     $email = $inData["email"];
     $phone = $inData["phone"];
     $userId = $inData["userId"];
-
+    
+    //Requires contacts to have a first and last name
     if ($firstName === "" || $lastName === "" || $userId === "") {
         returnWithError("Missing required fields");
     }
     else {
         $fullName = $firstName . " " . $lastName;
 
-        $stmt = $conn->prepare("INSERT INTO Contacts (FullName, FirstName, LastName, Phone, Email, UserID) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO Contacts(FullName, FirstName, LastName, Phone, Email, UserID) VALUES (?, ?, ?, ?, ?, ?)");
 
         if (!$stmt) {
-            returnWithError(
-                "Debug: Prepare failed: " . $conn->error
-            );
+            returnWithError("Debug: Prepare failed: " . $conn->error);
         }
 
         $stmt->bind_param("sssssi", $fullName, $firstName, $lastName, $phone, $email, $userId);
@@ -44,9 +45,7 @@ else {
             returnWithSuccess();
         }
         else {
-            returnWithError(
-                "Unable to add contact"
-            );
+            returnWithError("Unable to add contact");
         }
         $stmt->close();
     }
@@ -54,10 +53,7 @@ else {
 }
 
 function getRequestInfo() {
-    return json_decode(
-        file_get_contents('php://input'),
-        true
-    );
+    return json_decode(file_get_contents('php://input'), true);
 }
 
 function sendResultInfoAsJson($obj) {
@@ -66,17 +62,13 @@ function sendResultInfoAsJson($obj) {
 }
 
 function returnWithError($err) {
-    $retValue =
-        '{"error":"' . $err . '"}';
-
+    $retValue = '{"error":"' . $err . '"}';
     sendResultInfoAsJson($retValue);
     exit;
 }
 
 function returnWithSuccess() {
-    $retValue =
-        '{"error":""}';
-
+    $retValue = '{"error":""}';
     sendResultInfoAsJson($retValue);
     exit;
 }
