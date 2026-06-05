@@ -18,9 +18,7 @@ else
     //Getting all needed information
     $contactID = $inData["contactId"];
     $userID = $inData["userId"];
-    $firstName = $inData["firstName"];
-    $phone = $inData["phone"];
-    $email = $inData["email"];
+
 
     if ($contactID == "" || $userID == "")
     {
